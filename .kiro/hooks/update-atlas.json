@@ -1,0 +1,14 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Update Kiro Atlas",
+      "trigger": "PostFileSave",
+      "matcher": "^(?:\\.kiro/|demo/).+",
+      "action": {
+        "type": "command",
+        "command": "python3 scripts/generate_atlas.py"
+      }
+    }
+  ]
+}
