@@ -1,5 +1,6 @@
 .lakebed/
 capsule/.lakebed/
+capsule/lakebed.json
 .env
 .env.*
 !*.example
