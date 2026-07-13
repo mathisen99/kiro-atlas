@@ -16,7 +16,7 @@ export const atlasData = {
         "Product goals"
       ],
       "bullets": [
-        "Community members exploring a real-world Kiro workflow",
+        "Community members exploring a working Kiro workflow",
         "Developers trying Kiro for the first time",
         "Teams learning how steering and specs connect to source files",
         "Demo viewers who need a project they can understand in minutes",
