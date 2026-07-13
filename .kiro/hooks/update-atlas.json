@@ -3,9 +3,9 @@
   "hooks": [
     {
       "name": "Update Kiro Atlas",
-      "description": "Regenerate the public Atlas data after Kiro workspace or demo source edits.",
+      "description": "Regenerate public Atlas data after Kiro workspace, demo source, or project documentation edits.",
       "trigger": "PostFileSave",
-      "matcher": "(?:\\.kiro/|demo/).+",
+      "matcher": "(?:(?:\\.kiro|demo)/.+|README\\.md$)",
       "action": {
         "type": "command",
         "command": "python3 scripts/generate_atlas.py"

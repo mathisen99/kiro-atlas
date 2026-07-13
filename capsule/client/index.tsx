@@ -1,7 +1,19 @@
 import { useState } from "preact/hooks";
 import { atlasData } from "../shared/atlas.generated";
 
-const workflow = ["Steering", "Requirements", "Design", "Tasks", "Code", "Hook refresh"];
+const workflow = ["Project change", "Kiro edit", "Hook fires", "Atlas generated", "Review output", "Publish snapshot"];
+
+const showcaseIdeas = [
+  { label: "Project health", title: "Progress dashboards", description: "Turn spec tasks, milestones, blockers, and ownership into a status page anyone can understand.", accent: "cyan" },
+  { label: "Planning", title: "Living spec portals", description: "Publish requirements, design decisions, acceptance criteria, and links from features to implementation files.", accent: "violet" },
+  { label: "Releases", title: "Release readiness", description: "Combine test results, incomplete work, migration notes, approvals, and rollout checks into one release view.", accent: "emerald" },
+  { label: "Documentation", title: "Freshness reports", description: "Flag docs affected by behavior changes, generate update queues, and make documentation drift visible early.", accent: "amber" },
+  { label: "Onboarding", title: "Team field guides", description: "Generate architecture maps, important commands, conventions, and suggested first tasks for new contributors.", accent: "cyan" },
+  { label: "Quality", title: "Engineering scorecards", description: "Summarize test coverage, accessibility findings, dependency changes, performance budgets, and technical debt.", accent: "violet" },
+  { label: "Communication", title: "Stakeholder updates", description: "Translate repository activity into concise product updates for teammates, customers, or community followers.", accent: "emerald" },
+  { label: "Operations", title: "Runbooks and incidents", description: "Keep operational procedures, service ownership, known risks, and incident follow-ups aligned with the code.", accent: "amber" },
+  { label: "Discovery", title: "Change journals", description: "Create searchable timelines of decisions, shipped behavior, deprecated paths, and why the project evolved.", accent: "cyan" }
+] as const;
 
 function Icon({ name, className = "h-4 w-4" }: { name: "arrow" | "check" | "file" | "hook" | "spark" | "terminal"; className?: string }) {
   const paths = {
@@ -152,12 +164,12 @@ export function App() {
             <span className="font-mono text-sm font-semibold tracking-tight text-white">kiro/atlas</span>
           </a>
           <nav className="hidden items-center gap-6 font-mono text-xs text-zinc-500 sm:flex">
-            <a className="hover:text-white" href="#specs">Specs</a>
-            <a className="hover:text-white" href="#steering">Steering</a>
-            <a className="hover:text-white" href="#map">Project map</a>
-            <a className="hover:text-white" href="#learn">Learn Kiro</a>
+            <a className="hover:text-white" href="#automation">Automation</a>
+            <a className="hover:text-white" href="#specs">Live data</a>
+            <a className="hover:text-white" href="#ideas">Ideas</a>
+            <a className="hover:text-white" href="#hook">The hook</a>
           </nav>
-          <span className="flex items-center gap-2 rounded-full border border-emerald-400/15 bg-emerald-400/[0.06] px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-emerald-300"><span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />generated</span>
+          <span className="flex items-center gap-2 rounded-full border border-emerald-400/15 bg-emerald-400/[0.06] px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-emerald-300"><span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />live snapshot</span>
         </div>
       </header>
 
@@ -165,16 +177,16 @@ export function App() {
         <section className="mx-auto max-w-6xl px-5 pb-16 pt-20 sm:px-8 sm:pt-28">
           <div className="grid items-end gap-12 lg:grid-cols-[1.35fr_.65fr]">
             <div>
-              <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-400"><Icon className="h-3.5 w-3.5 text-violet-300" name="terminal" /> workspace intelligence, made visible</p>
-              <h1 className="max-w-4xl text-5xl font-semibold leading-[0.98] tracking-[-0.05em] text-white sm:text-7xl lg:text-[5.5rem]">Make the hidden <span className="bg-gradient-to-r from-cyan-300 via-sky-300 to-violet-400 bg-clip-text text-transparent">.kiro</span> workspace visible.</h1>
-              <p className="mt-7 max-w-2xl text-lg leading-8 text-zinc-400">See how persistent knowledge becomes requirements, design, tasks, and working code—all refreshed by one local hook.</p>
+              <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-400"><Icon className="h-3.5 w-3.5 text-violet-300" name="terminal" /> Kiro daily coding challenge · meaningful automation</p>
+              <h1 className="max-w-4xl text-5xl font-semibold leading-[0.98] tracking-[-0.05em] text-white sm:text-7xl lg:text-[5.2rem]">Turn project changes into a <span className="bg-gradient-to-r from-cyan-300 via-sky-300 to-violet-400 bg-clip-text text-transparent">public, living Atlas.</span></h1>
+              <p className="mt-7 max-w-2xl text-lg leading-8 text-zinc-400">A Kiro hook transforms specs, steering, tasks, and source relationships into meaningful project intelligence—ready to share with teammates, contributors, and the community.</p>
             </div>
             <div className="rounded-2xl border border-white/10 bg-black/30 p-5 font-mono shadow-2xl shadow-cyan-950/10">
-              <div className="mb-4 flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-rose-400/70" /><span className="h-2 w-2 rounded-full bg-amber-300/70" /><span className="h-2 w-2 rounded-full bg-emerald-400/70" /><span className="ml-auto text-[10px] text-zinc-600">atlas.status</span></div>
-              <p className="text-xs text-zinc-500"><span className="text-cyan-400">→</span> scanning committed workspace</p>
-              <p className="mt-2 text-xs text-zinc-500"><span className="text-emerald-400">✓</span> {atlasData.summary.specs} specs connected</p>
-              <p className="mt-2 text-xs text-zinc-500"><span className="text-emerald-400">✓</span> {atlasData.summary.demoFiles} source files mapped</p>
-              <p className="mt-4 border-t border-white/10 pt-4 text-xs text-zinc-300">next: <span className="text-amber-300">{atlasData.nextStep.task}</span></p>
+              <div className="mb-4 flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-rose-400/70" /><span className="h-2 w-2 rounded-full bg-amber-300/70" /><span className="h-2 w-2 rounded-full bg-emerald-400/70" /><span className="ml-auto text-[10px] text-zinc-600">hook.output</span></div>
+              <p className="text-xs text-zinc-500"><span className="text-cyan-400">→</span> project file changed</p>
+              <p className="mt-2 text-xs text-zinc-500"><span className="text-violet-400">↳</span> Kiro hook ran generator</p>
+              <p className="mt-2 text-xs text-zinc-500"><span className="text-emerald-400">✓</span> {atlasData.summary.specs} specs · {atlasData.summary.totalTasks} tasks · {atlasData.summary.demoFiles} files mapped</p>
+              <p className="mt-4 border-t border-white/10 pt-4 text-xs text-zinc-300">next action: <span className="text-amber-300">{atlasData.nextStep.task}</span></p>
             </div>
           </div>
 
@@ -186,7 +198,7 @@ export function App() {
           </div>
 
           <div className="mt-8 overflow-x-auto rounded-2xl border border-white/10 bg-white/[0.025] p-5">
-            <p className="mb-5 font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-600">Workspace flow</p>
+            <p className="mb-5 font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-600">From change to shared insight</p>
             <div className="flex min-w-[720px] items-center justify-between">
               {workflow.map((step, index) => (
                 <div className="contents" key={step}>
@@ -198,15 +210,41 @@ export function App() {
           </div>
         </section>
 
-        <section className="border-y border-white/[0.07] bg-white/[0.018] py-20" id="specs">
+        <section className="border-y border-white/[0.07] bg-white/[0.018] py-20" id="automation">
           <div className="mx-auto max-w-6xl px-5 sm:px-8">
-            <SectionHeading description="Specs turn an idea into an inspectable plan. Expand a card to follow its requirements, design decisions, tasks, and referenced files." eyebrow="01 / feature planning" title="Specs with a pulse" />
+            <div className="grid gap-10 lg:grid-cols-[.8fr_1.2fr] lg:items-start">
+              <SectionHeading description="The useful part is not merely running a command. The hook turns repository activity into a visible artifact that helps real people understand what is happening." eyebrow="01 / the challenge" title="Automate the boring, reveal the important" />
+              <div className="rounded-2xl border border-cyan-300/15 bg-cyan-300/[0.045] p-6 sm:p-8">
+                <p className="font-mono text-xs uppercase tracking-[0.18em] text-cyan-300">The result</p>
+                <p className="mt-4 text-2xl font-medium leading-9 text-white">A code or workspace change produces meaningful, inspectable output instead of leaving project knowledge scattered and stale.</p>
+                <p className="mt-4 text-sm leading-7 text-zinc-400">This deployed page is a publishable snapshot of that output. Generation happens automatically on relevant Kiro edits; publishing remains an intentional manual step.</p>
+              </div>
+            </div>
+            <div className="mt-10 grid gap-4 md:grid-cols-3">
+              {[
+                ["01", "Observe", "Watch committed specs, steering, hooks, and demo source files for meaningful changes."],
+                ["02", "Transform", "Parse safe repository data into progress, next actions, relationships, and project context."],
+                ["03", "Share", "Render the result as a polished Lakebed dashboard for people who never open the repository."]
+              ].map(([number, title, description]) => (
+                <article className="rounded-2xl border border-white/10 bg-black/25 p-6" key={number}>
+                  <span className="font-mono text-xs text-violet-300">{number}</span>
+                  <h3 className="mt-6 text-xl font-medium text-white">{title}</h3>
+                  <p className="mt-3 text-sm leading-6 text-zinc-400">{description}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="py-20" id="specs">
+          <div className="mx-auto max-w-6xl px-5 sm:px-8">
+            <SectionHeading description="This is real generated output, not hand-written showcase copy. Expand a card to follow requirements, design decisions, task progress, next work, and referenced implementation files." eyebrow="02 / generated now" title="Specs with a pulse" />
             <div className="grid gap-4 lg:grid-cols-2">{atlasData.specs.map((spec) => <SpecCard key={spec.name} spec={spec} />)}</div>
           </div>
         </section>
 
         <section className="mx-auto max-w-6xl px-5 py-20 sm:px-8" id="steering">
-          <SectionHeading description="Steering gives Kiro persistent project knowledge: what you are building, the technical boundaries, and where everything belongs." eyebrow="02 / persistent context" title="Knowledge that stays in the room" />
+          <SectionHeading description="Steering gives Kiro persistent project knowledge: what you are building, the technical boundaries, and where everything belongs." eyebrow="03 / persistent context" title="Knowledge that stays in the room" />
           <div className="grid gap-4 lg:grid-cols-3">
             {atlasData.steering.map((document, index) => (
               <article className="group rounded-2xl border border-white/10 bg-white/[0.025] p-6 hover:border-violet-300/25" key={document.path}>
@@ -222,9 +260,9 @@ export function App() {
           </div>
         </section>
 
-        <section className="border-y border-white/[0.07] bg-gradient-to-b from-cyan-950/[0.08] to-transparent py-20">
+        <section className="border-y border-white/[0.07] bg-gradient-to-b from-cyan-950/[0.08] to-transparent py-20" id="hook">
           <div className="mx-auto grid max-w-6xl gap-8 px-5 sm:px-8 lg:grid-cols-[.7fr_1.3fr]">
-            <SectionHeading description="A Kiro CLI v3 PostFileSave hook watches the learning artifacts and regenerates this page's data locally." eyebrow="03 / automation" title="Refresh, never deploy" />
+            <SectionHeading description="Kiro CLI v3 hooks watch the learning artifacts and regenerate this page's data locally. A narrow fallback covers replacement edits that currently bypass the file-save event." eyebrow="04 / implementation" title="Generate on change. Publish on purpose." />
             <div className="space-y-4">
               {atlasData.hooks.map((hook) => (
                 <article className="rounded-2xl border border-white/10 bg-black/30 p-6" key={hook.path}>
@@ -237,13 +275,13 @@ export function App() {
                   </dl>
                 </article>
               ))}
-              <p className="rounded-xl border border-amber-300/15 bg-amber-300/[0.05] px-4 py-3 text-sm text-amber-100"><strong className="font-medium">Deployment is manual</strong> and is not triggered on every save.</p>
+              <p className="rounded-xl border border-amber-300/15 bg-amber-300/[0.05] px-4 py-3 text-sm leading-6 text-amber-100"><strong className="font-medium">Clear boundary:</strong> the data refresh is automatic; deployment is manual and is not triggered on every save.</p>
             </div>
           </div>
         </section>
 
         <section className="mx-auto max-w-6xl px-5 py-20 sm:px-8" id="map">
-          <SectionHeading description="The fictional Quest Board is small on purpose. Atlas maps exported symbols and shows which specs point to each file—without exposing full source code." eyebrow="04 / implementation" title="From tasks to files" />
+          <SectionHeading description="The fictional Quest Board is small on purpose. Atlas maps exported symbols and shows which specs point to each file—without exposing full source code." eyebrow="05 / traceability" title="From tasks to files" />
           <div className="overflow-hidden rounded-2xl border border-white/10 bg-zinc-950/70">
             <div className="flex items-center justify-between border-b border-white/10 px-5 py-4"><span className="font-mono text-xs text-zinc-500">demo/</span><span className="font-mono text-[10px] uppercase tracking-wider text-zinc-600">{atlasData.projectFiles.length} files</span></div>
             {atlasData.projectFiles.map((file) => (
@@ -256,9 +294,36 @@ export function App() {
           </div>
         </section>
 
-        <section className="border-t border-white/[0.07] bg-white/[0.018] py-20" id="learn">
+        <section className="border-t border-white/[0.07] bg-white/[0.018] py-20" id="ideas">
           <div className="mx-auto max-w-6xl px-5 sm:px-8">
-            <SectionHeading description="A practical field guide to the pieces you will touch most often while working with Kiro." eyebrow="05 / field guide" title="Learn the workspace" />
+            <SectionHeading description="Atlas is one implementation. The same trigger → transform → share pattern can produce many kinds of useful, visible output for a real team." eyebrow="06 / build your own" title="What else could a hook publish?" />
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {showcaseIdeas.map((idea) => {
+                const accents = {
+                  cyan: "border-cyan-300/15 bg-cyan-300/[0.035] text-cyan-300",
+                  violet: "border-violet-300/15 bg-violet-300/[0.035] text-violet-300",
+                  emerald: "border-emerald-300/15 bg-emerald-300/[0.035] text-emerald-300",
+                  amber: "border-amber-300/15 bg-amber-300/[0.035] text-amber-300"
+                };
+                return (
+                  <article className={`rounded-2xl border p-6 ${accents[idea.accent]}`} key={idea.title}>
+                    <p className="font-mono text-[10px] uppercase tracking-[0.18em] opacity-80">{idea.label}</p>
+                    <h3 className="mt-5 text-xl font-medium text-white">{idea.title}</h3>
+                    <p className="mt-3 text-sm leading-6 text-zinc-400">{idea.description}</p>
+                  </article>
+                );
+              })}
+            </div>
+            <div className="mt-8 rounded-2xl border border-white/10 bg-black/30 p-6 sm:flex sm:items-center sm:justify-between sm:gap-8">
+              <div><p className="text-lg font-medium text-white">The reusable idea</p><p className="mt-2 text-sm leading-6 text-zinc-400">Choose a change people care about, derive information they need, and generate an artifact they can actually use.</p></div>
+              <code className="mt-5 block shrink-0 rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-xs text-cyan-300 sm:mt-0">change → hook → useful output</code>
+            </div>
+          </div>
+        </section>
+
+        <section className="border-t border-white/[0.07] py-20" id="learn">
+          <div className="mx-auto max-w-6xl px-5 sm:px-8">
+            <SectionHeading description="A practical field guide to the pieces you will touch most often while working with Kiro." eyebrow="07 / field guide" title="Learn the workspace" />
             <div className="grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-3">
               {[
                 ["Steering", "Persistent project instructions", ".kiro/steering/"],
@@ -280,7 +345,7 @@ export function App() {
           </div>
         </section>
 
-        <footer className="border-t border-white/[0.07] px-5 py-8 sm:px-8"><div className="mx-auto flex max-w-6xl flex-col gap-3 font-mono text-[11px] text-zinc-600 sm:flex-row sm:items-center sm:justify-between"><span>kiro atlas / generated from committed files</span><span>local refresh · manual deploy · public by design</span></div></footer>
+        <footer className="border-t border-white/[0.07] px-5 py-8 sm:px-8"><div className="mx-auto flex max-w-6xl flex-col gap-3 font-mono text-[11px] text-zinc-600 sm:flex-row sm:items-center sm:justify-between"><span>kiro atlas / a Kiro hook challenge showcase</span><span>automatic generation · intentional publishing · public by design</span></div></footer>
       </div>
     </main>
   );

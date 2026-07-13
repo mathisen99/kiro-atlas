@@ -2,7 +2,7 @@
 export const atlasData = {
   "project": {
     "name": "Kiro Atlas",
-    "description": "Kiro Atlas is a small visual guide to the files and workflow inside a Kiro workspace. It turns the committed steering, specs, hooks, and fictional Quest Board source files in this repository into a polished Lakebed homepage for new Kiro users.",
+    "description": "Kiro Atlas is a Kiro hook challenge showcase that turns committed steering, specs, tasks, hooks, and source relationships into a polished Lakebed project-intelligence page. It demonstrates how one repository change can automatically produce meaningful, visible output for teammates, contributors, and the community.",
     "tagline": "Make the hidden .kiro workspace visible"
   },
   "steering": [
@@ -152,10 +152,10 @@ export const atlasData = {
   "hooks": [
     {
       "name": "Update Kiro Atlas",
-      "description": "Regenerate the public Atlas data after Kiro workspace or demo source edits.",
+      "description": "Regenerate public Atlas data after Kiro workspace, demo source, or project documentation edits.",
       "path": ".kiro/hooks/update-atlas.json",
       "trigger": "PostFileSave",
-      "matcher": "(?:\\.kiro/|demo/).+",
+      "matcher": "(?:(?:\\.kiro|demo)/.+|README\\.md$)",
       "actionType": "command",
       "command": "python3 scripts/generate_atlas.py",
       "enabled": true

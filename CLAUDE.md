@@ -7,7 +7,7 @@ Your role is to build software within this capsule. Lakebed is the runtime, the 
 ## Hard rules
 
 - No installing node modules. You can use the built-in APIs. Write TypeScript for anything that is not included.
-- Lakebed CLI should always be run through `npx`; it is not a global. Use the repository-pinned `npx lakebed@0.0.28 [command]`. Do not install Lakebed or create a local `node_modules` directory.
+- Lakebed CLI should always be run through `npx`; it is not a global. Use stable `0.0.28` for local work and builds, and the repository-pinned staging release for the existing live demo deployment. Do not install Lakebed or create a local `node_modules` directory.
 - The Lakebed capsule lives in `capsule/`. Client code goes in `capsule/client`, server code in `capsule/server`, and shared capsule code in `capsule/shared`.
 - Use `lakebed/server` only from `capsule/server/*.ts`.
 - Use `lakebed/client` only from `capsule/client/*.tsx`.
@@ -21,14 +21,15 @@ Your role is to build software within this capsule. Lakebed is the runtime, the 
 - Read server-only environment variables through `ctx.env`; define them in `capsule/.env.lakebed.server`.
 - Auth can be added with a Google sign-in using `<SignInWithGoogle />` or `signInWithGoogle()` from `lakebed/client`.
 - Keep `capsule/shared/` free of DOM, Node, env, and Lakebed runtime imports.
-- Environment variables are only available on the server, and must be defined in `capsule/.env.lakebed.server`. They are not available during build time. If you need build-time environment variables, define them in code and do conditional logic based on them. They will be synced on `npx lakebed@0.0.28 deploy ./capsule` after the deploy is claimed.
+- Environment variables are only available on the server, and must be defined in `capsule/.env.lakebed.server`. They are not available during build time. If you need build-time environment variables, define them in code and do conditional logic based on them. They will be synced by the matching deploy command after the deploy is claimed.
 
-## Pinned Lakebed release
+## Pinned Lakebed releases
 
-This repository pins Lakebed `0.0.28`, the stable release verified to generate the database manifest and `maxIndexKeyBytes: 2048` required by the deploy service.
+This repository uses Lakebed `0.0.28` for local development and builds. The public showcase URL is an existing staging-bound deployment and must be updated with `0.0.28-staging.29282560426`.
 
-- Use exactly `npx lakebed@0.0.28 ...` for development, builds, database inspection, and deployment so clones remain reproducible.
-- Do not replace the pin with `@latest` or `@staging` without building and deploying the capsule with the replacement first.
+- Use exactly `npx lakebed@0.0.28 ...` for development, builds, and database inspection.
+- Use exactly `npx lakebed@0.0.28-staging.29282560426 deploy ./capsule --json` to update the existing staging showcase. Stable `0.0.28` targets the production service and will reject the staging-bound deploy ID.
+- Do not replace either pin with `@latest` or `@staging` without building and deploying the capsule with the replacement first.
 - A failure containing `Source-backed artifacts require a database manifest` or `Source-backed artifacts require maxIndexKeyBytes to be 2048` means an older CLI was used. Return to the pinned command; do not hand-edit generated artifacts.
 
 ## Database API requirements
@@ -60,7 +61,7 @@ npx lakebed@0.0.28 dev ./capsule
 Deploy:
 
 ```sh
-npx lakebed@0.0.28 deploy ./capsule
+npx lakebed@0.0.28-staging.29282560426 deploy ./capsule --json
 ```
 
 Build:

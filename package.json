@@ -2,11 +2,11 @@
   "name": "kiro-atlas",
   "private": true,
   "version": "0.1.0",
-  "description": "A visual guide to the files and flow inside a Kiro workspace.",
+  "description": "A Kiro hook that generates a shareable project-intelligence page from workspace artifacts.",
   "scripts": {
     "atlas": "python3 scripts/generate_atlas.py",
     "dev": "npx lakebed@0.0.28 dev ./capsule",
     "build": "npx lakebed@0.0.28 build ./capsule --target anonymous --out .lakebed/atlas-artifact.json",
-    "deploy": "npx lakebed@0.0.28 deploy ./capsule --json"
+    "deploy": "npx lakebed@0.0.28-staging.29282560426 deploy ./capsule --json"
   }
 }
