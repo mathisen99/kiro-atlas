@@ -151,10 +151,10 @@ export const atlasData = {
   "hooks": [
     {
       "name": "Update Kiro Atlas",
-      "description": "Regenerates Atlas data after relevant workspace files are saved.",
+      "description": "Regenerate the public Atlas data after Kiro workspace or demo source edits.",
       "path": ".kiro/hooks/update-atlas.json",
       "trigger": "PostFileSave",
-      "matcher": "^(?:\\.kiro/|demo/).+",
+      "matcher": "(?:\\.kiro/|demo/).+",
       "actionType": "command",
       "command": "python3 scripts/generate_atlas.py",
       "enabled": true

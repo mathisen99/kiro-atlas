@@ -2,6 +2,10 @@
 
 Kiro Atlas is a small visual guide to the files and workflow inside a Kiro workspace. It turns the committed steering, specs, hooks, and fictional Quest Board source files in this repository into a polished Lakebed homepage for new Kiro users.
 
+**[Open the live Kiro Atlas demo](https://quiet-garden-2148fcf4c6.staging.lakebed.app/)**
+
+![Kiro Atlas homepage showing workspace progress, specs, steering, hooks, and project files](docs/kiro-atlas-homepage.png)
+
 ## Why it helps
 
 Kiro's workspace is powerful, but the relationship between persistent steering, feature specs, tasks, hooks, and source code can be hard to see at first. Atlas puts that relationship on one page and recommends the next incomplete task.
@@ -14,7 +18,7 @@ The included **Quest Board** project is intentionally tiny: users can create que
 Edit .kiro/ or demo/ → Kiro PostFileSave hook → Python generator → Atlas data → Lakebed UI
 ```
 
-The hook runs `python3 scripts/generate_atlas.py`. It does **not** deploy. Deployment is always a separate manual command.
+The hook runs `python3 scripts/generate_atlas.py`. It does **not** deploy. Deployment is always a separate manual command. Kiro intentionally hides stdout from successful `PostFileSave` command hooks, so the visible confirmation is the updated `capsule/shared/atlas.generated.ts` file and refreshed Atlas page.
 
 ## Quick start
 
@@ -22,7 +26,7 @@ No Node modules need to be installed.
 
 ```sh
 python3 scripts/generate_atlas.py
-npx lakebed@staging dev ./capsule
+npx lakebed@0.0.28 dev ./capsule
 ```
 
 Open the local URL printed by Lakebed.
@@ -30,7 +34,7 @@ Open the local URL printed by Lakebed.
 Build the anonymous artifact:
 
 ```sh
-npx lakebed@staging build ./capsule --target anonymous --out .lakebed/atlas-artifact.json
+npx lakebed@0.0.28 build ./capsule --target anonymous --out .lakebed/atlas-artifact.json
 ```
 
 Start Kiro CLI v3:
@@ -41,19 +45,13 @@ kiro-cli --v3
 
 ## Manual deployment
 
-The currently compatible Lakebed release is on the `staging` npm tag. Deploy to the matching staging service with:
+Lakebed is pinned to the stable version verified with this repository. Deploy manually with:
 
 ```sh
-npx lakebed@staging deploy ./capsule --json
+npx lakebed@0.0.28 deploy ./capsule --json
 ```
 
-To target production after its auth registration service is available:
-
-```sh
-npx lakebed@staging deploy ./capsule --api https://api.lakebed.dev --json
-```
-
-The unqualified `npx lakebed` command can be restored after npm's `latest` release generates the required database manifest and `maxIndexKeyBytes: 2048`. See [AGENTS.md](AGENTS.md) for the exact compatibility notes future coding agents should follow.
+The explicit version keeps fresh clones reproducible and generates the required database manifest and `maxIndexKeyBytes: 2048`. See [AGENTS.md](AGENTS.md) for the compatibility rules future coding agents should follow.
 
 ## Public-data boundary
 
@@ -74,7 +72,7 @@ It does not read `.git`, environment files, files outside the repository, the ho
 3. Start `kiro-cli --v3` and open the `quest-difficulty` spec.
 4. Implement `difficultyLabel` in `demo/difficulty.ts`.
 5. Mark the final task complete in `.kiro/specs/quest-difficulty/tasks.md`.
-6. Save and show the hook regenerate Atlas data.
+6. Save and show `capsule/shared/atlas.generated.ts` update automatically.
 7. Refresh the homepage to show full progress and the updated next step.
 
 ## Repository map
