@@ -16,6 +16,7 @@ export const atlasData = {
         "Product goals"
       ],
       "bullets": [
+        "Community members exploring a real-world Kiro workflow",
         "Developers trying Kiro for the first time",
         "Teams learning how steering and specs connect to source files",
         "Demo viewers who need a project they can understand in minutes",
@@ -158,6 +159,16 @@ export const atlasData = {
       "actionType": "command",
       "command": "python3 scripts/generate_atlas.py",
       "enabled": true
+    },
+    {
+      "name": "Update Kiro Atlas after replacement edits",
+      "description": "CLI v3 fallback for replacement edits that do not emit PostFileSave.",
+      "path": ".kiro/hooks/update-atlas.json",
+      "trigger": "PostToolUse",
+      "matcher": "^str_replace$",
+      "actionType": "command",
+      "command": "python3 scripts/generate_atlas.py",
+      "enabled": true
     }
   ],
   "projectFiles": [
@@ -212,7 +223,7 @@ export const atlasData = {
   "summary": {
     "specs": 2,
     "steeringFiles": 3,
-    "hooks": 1,
+    "hooks": 2,
     "demoFiles": 3,
     "completedTasks": 6,
     "totalTasks": 7,

@@ -4,6 +4,7 @@ Quest Board is a tiny fictional project for people learning Kiro. It lets a user
 
 ## Audience
 
+- Community members exploring a real-world Kiro workflow
 - Developers trying Kiro for the first time
 - Teams learning how steering and specs connect to source files
 - Demo viewers who need a project they can understand in minutes
